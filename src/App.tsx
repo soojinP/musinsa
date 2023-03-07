@@ -1,7 +1,8 @@
-import './App.css'
+// import './App.css'
+import Page from './pages/Page'
 
 function App() {
-    return <div className="App">무신사 과제</div>
+    return <Page />
 }
 
 export default App
