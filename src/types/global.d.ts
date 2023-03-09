@@ -1,4 +1,4 @@
-export interface ItemType {
+export interface Item {
     url: string
     name: string
     gender: string
@@ -18,31 +18,8 @@ export interface ItemType {
     deleted: boolean
 }
 
-export interface ListItemType extends ItemType {
-    deleted: boolean
-}
-
-export interface FilterType {
+export interface Filter {
     title: string
     selected: boolean
-    checkItem: (item: ItemType) => boolean
+    checkItem: (item: Item) => boolean
 }
-
-// interface RootObject {
-//     url: string
-//     name: string
-//     gender: string
-//     culture: string
-//     born: string
-//     died: string
-//     titles: string[]
-//     aliases: string[]
-//     father: string
-//     mother: string
-//     spouse: string
-//     allegiances: any[]
-//     books: string[]
-//     povBooks: any[]
-//     tvSeries: string[]
-//     playedBy: string[]
-// }

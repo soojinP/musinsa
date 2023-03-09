@@ -1,9 +1,9 @@
 import styled from '@emotion/styled'
-import { ItemType } from '../../types/global'
+import { Item } from '../../types/global'
 
 interface Props {
-    item: ItemType
-    onClick: (item: ItemType) => void
+    item: Item
+    onClick: (item: Item) => void
 }
 
 function ListItem({ item, onClick }: Props) {

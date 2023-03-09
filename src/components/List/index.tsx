@@ -5,7 +5,7 @@ import { useSetRecoilState, useRecoilValue } from 'recoil'
 import ListItem from './ListItem'
 import styled from '@emotion/styled'
 import { itemListState, filteredItemListState } from '../../store/atoms'
-import { ItemType } from '../../types/global'
+import { Item } from '../../types/global'
 
 const MAX_PAGE = 10
 
@@ -60,7 +60,7 @@ function ListContainer({ firstPage = 1 }: Props) {
         }
     }, [isLoading, data, setItemList])
 
-    const onClickDelete = (item: ItemType) => {
+    const onClickDelete = (item: Item) => {
         setItemList((prev) => prev.map((ele) => (ele === item ? { ...ele, deleted: true } : ele)))
     }
 

@@ -1,11 +1,11 @@
 import { useRecoilState } from 'recoil'
 import { filterListState } from '../../store/atoms'
-import { FilterType } from '../../types/global'
+import { Filter } from '../../types/global'
 import * as S from './styles'
 
 interface Props {
-    item: FilterType
-    onClick: (item: FilterType) => void
+    item: Filter
+    onClick: (item: Filter) => void
 }
 
 function FilterItem({ item, onClick }: Props) {

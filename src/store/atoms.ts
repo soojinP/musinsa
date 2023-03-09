@@ -1,7 +1,7 @@
 import { atom, selector } from 'recoil'
-import { FilterType, ItemType } from '../types/global'
+import { Filter, Item } from '../types/global'
 
-export const itemListState = atom<ItemType[]>({
+export const itemListState = atom<Item[]>({
     key: 'itemListState',
     default: [],
 })
@@ -14,7 +14,7 @@ export const displayItemListState = selector({
     },
 })
 
-export const filterListState = atom<FilterType[]>({
+export const filterListState = atom<Filter[]>({
     key: 'filterListState',
     default: [
         {
