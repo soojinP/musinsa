@@ -1,7 +1,7 @@
 import { useSetRecoilState, useRecoilState } from 'recoil'
 import * as S from './styles'
 import FilterItem from './FilterItem'
-import { filterListState, itemListState } from '../../store/atoms'
+import { filterListState, itemListState } from '../../recoil/store'
 import { Filter } from '../../types/global'
 
 type Props = {}

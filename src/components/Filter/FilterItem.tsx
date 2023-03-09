@@ -1,5 +1,5 @@
 import { useRecoilState } from 'recoil'
-import { filterListState } from '../../store/atoms'
+import { filterListState } from '../../recoil/store'
 import { Filter } from '../../types/global'
 import * as S from './styles'
 

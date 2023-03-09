@@ -4,7 +4,7 @@ import { ReactQueryDevtools } from 'react-query/devtools'
 import { useSetRecoilState, useRecoilValue } from 'recoil'
 import ListItem from './ListItem'
 import styled from '@emotion/styled'
-import { itemListState, filteredItemListState } from '../../store/atoms'
+import { itemListState, filteredItemListState } from '../../recoil/store'
 import { Item } from '../../types/global'
 
 const MAX_PAGE = 10
