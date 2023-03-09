@@ -1,5 +1,4 @@
 import { useLocation } from 'react-router-dom'
-import { useState, useEffect } from 'react'
 import styled from '@emotion/styled'
 import Filter from '../components/Filter'
 import Title from '../components/Title'
@@ -8,9 +7,9 @@ import List from '../components/List'
 type Props = {}
 
 function Page({}: Props) {
-    const location = useLocation()
-    const urlParams = new URLSearchParams(location.search)
-    const page = urlParams.get('page') || 1
+    const { pathname, search } = useLocation()
+    const urlParams = new URLSearchParams(search)
+    const page = pathname === '/homework' ? urlParams.get('page') || 1 : 1
 
     return (
         <StyledPage>

@@ -81,5 +81,5 @@ const ListContainerWrapper = styled.div`
     display: flex;
     flex-direction: column;
     width: 100%;
-    padding: 10px;
+    padding: 0.625rem;
 `

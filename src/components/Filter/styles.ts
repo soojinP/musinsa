@@ -6,18 +6,18 @@ interface FilterItemProps {
 
 export const FilterContainer = styled.div`
     width: 100%;
-    height: 50px;
+    height: 3.125rem;
     display: flex;
     align-items: center;
 `
 export const FilterItem = styled.div<FilterItemProps>`
     display: flex;
-    height: 32px;
-    margin-left: 8px;
-    padding: 0 8px;
-    border-radius: 4px;
+    height: 2rem;
+    margin-left: 0.5rem;
+    padding: 0 0.5rem;
+    border-radius: 0.25rem;
     background-color: #f3f3f3;
-    font-size: 14px;
+    font-size: 0.875rem;
     color: ${(props) => (props.selected ? '#0078ff' : '#6e6e6e')};
     align-items: center;
     cursor: default;
@@ -25,9 +25,9 @@ export const FilterItem = styled.div<FilterItemProps>`
 export const ClearButton = styled.div`
     display: flex;
     position: absolute;
-    right: 14px;
-    padding: 6px;
-    border-radius: 6px;
+    right: 0.875rem;
+    padding: 0.375rem;
+    border-radius: 0.375rem;
     border: 1.5px solid #0078ff;
     background-color: #fff;
     font-size: 0.75rem;

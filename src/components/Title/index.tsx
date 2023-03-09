@@ -10,7 +10,7 @@ export default Title
 
 const TitleWrapper = styled.div`
     width: 100%;
-    height: 100px;
+    height: 6.25rem;
     background-color: black;
     color: white;
     font-size: 1.5rem;

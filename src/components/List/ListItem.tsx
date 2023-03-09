@@ -33,20 +33,20 @@ export default ListItem
 const ItemWrapper = styled.div`
     display: flex;
     flex-direction: row;
-    padding: 0 8px;
+    padding: 0 0.5rem;
     border: 1px solid #000;
-    border-radius: 4px;
-    font-size: 14px;
+    border-radius: 0.25rem;
+    font-size: 0.875rem;
     align-items: center;
     margin-bottom: 14px;
 `
 
 const DeleteButton = styled.div`
     position: absolute;
-    right: 30px;
-    border: 1px solid #000;
-    border-radius: 4px;
-    padding: 5px 10px;
+    right: 1.875rem;
+    border: 0.0625rem solid #000;
+    border-radius: 0.25rem;
+    padding: 0.3125rem 0.625rem;
     &:active {
         background-color: #000;
         color: #fff;
