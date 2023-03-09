@@ -1,30 +1,54 @@
-import * as S from './styles'
+import styled from '@emotion/styled'
+import { ItemType } from '../../types/global'
 
-type Props = {
-    name: string
-    titles: string[]
-    aliases: string[]
-    books: string[]
-    tvSeries: string[]
+interface Props {
+    item: ItemType
+    onClick: (item: ItemType) => void
 }
 
-function ListItem(props: Props) {
+function ListItem({ item, onClick }: Props) {
     return (
-        <S.ListItem>
+        <ItemWrapper>
             <div style={{ display: 'flex', flexDirection: 'column' }}>
-                <div style={{ display: 'flex', flexDirection: 'row' }}>
-                    <p>{`name: ${props.name}`}</p>
-                    <p>{`aliases: ${props.aliases.join(', ')}`}</p>
-                </div>
-                <p>{`title: ${props.titles.join(', ')}`}</p>
-                <div style={{ display: 'flex', flexDirection: 'row' }}>
-                    <p>{`book: ${props.books.length}`}</p>
-                    <p>{`tvSeries: ${props.tvSeries.length}`}</p>
-                </div>
+                <p>{`name: ${item.name}`}</p>
+                <p>{`aliases: ${item.aliases?.join(', ')}`}</p>
+                <p>{`title: ${item.titles?.join(', ')}`}</p>
+                <p>{`books: ${item.books?.length}`}</p>
+                <p>{`tvSeries: ${item.tvSeries?.length}`}</p>
             </div>
-            <div>삭제</div>
-        </S.ListItem>
+            <DeleteButton
+                onClick={(e) => {
+                    onClick(item)
+                    e.stopPropagation()
+                }}
+            >
+                삭제
+            </DeleteButton>
+        </ItemWrapper>
     )
 }
 
 export default ListItem
+
+const ItemWrapper = styled.div`
+    display: flex;
+    flex-direction: row;
+    padding: 0 8px;
+    border: 1px solid #000;
+    border-radius: 4px;
+    font-size: 14px;
+    align-items: center;
+    margin-bottom: 14px;
+`
+
+const DeleteButton = styled.div`
+    position: absolute;
+    right: 30px;
+    border: 1px solid #000;
+    border-radius: 4px;
+    padding: 5px 10px;
+    &:active {
+        background-color: #000;
+        color: #fff;
+    }
+`

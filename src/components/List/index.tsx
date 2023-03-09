@@ -1,54 +1,85 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect } from 'react'
+import { useInfiniteQuery } from 'react-query'
+import { ReactQueryDevtools } from 'react-query/devtools'
+import { useSetRecoilState, useRecoilValue } from 'recoil'
 import ListItem from './ListItem'
-import * as S from './styles'
+import styled from '@emotion/styled'
+import { itemListState, filteredItemListState } from '../../store/atoms'
+import { ItemType } from '../../types/global'
 
-type Props = {}
+const MAX_PAGE = 10
 
-type DataType = {
-    url: string
-    name: string
-    gender: string
-    culture: string
-    born: string
-    died: string
-    titles: string[]
-    aliases: string[]
-    father: string
-    mother: string
-    spouse: string
-    allegiances: string[]
-    books: string[]
-    povBooks: never[]
-    tvSeries: string[]
-    playedBy: string[]
+interface Props {
+    firstPage: number | string
 }
+function ListContainer({ firstPage = 1 }: Props) {
+    const setItemList = useSetRecoilState(itemListState)
+    const filteredItemList = useRecoilValue(filteredItemListState)
 
-function ListContainer({}: Props) {
-    const [data, setData] = useState<DataType[]>([])
+    const getItemList = async (pageNum: number | string) => {
+        const response = await fetch(
+            `https://www.anapioficeandfire.com/api/characters?page=${pageNum}&pageSize=10`
+        )
+        const data = await response.json()
+        return data
+    }
+
+    const { data, isLoading, hasNextPage, fetchNextPage } = useInfiniteQuery(
+        `itemList`,
+        ({ pageParam = firstPage }) => getItemList(pageParam),
+        {
+            getNextPageParam: (lastPage, allPages) => {
+                const currentPage = +firstPage + allPages.length - 1
+                const nextPage = currentPage < MAX_PAGE ? currentPage + 1 : undefined
+                return nextPage
+            },
+        }
+    )
+
+    const handleScroll = useCallback(() => {
+        const scrollPosition = window.innerHeight + window.pageYOffset
+        const pageBottom = document.body.scrollHeight
+        if (scrollPosition >= pageBottom && hasNextPage && !isLoading) {
+            fetchNextPage()
+        }
+    }, [fetchNextPage, isLoading])
+
     useEffect(() => {
-        fetch('http://127.0.0.1:5173/data/database.json', {
-            method: 'GET',
-        })
-            .then((res) => res.json())
-            .then((data) => {
-                setData(data)
+        window.addEventListener('scroll', handleScroll)
+        return () => {
+            window.removeEventListener('scroll', handleScroll)
+        }
+    }, [handleScroll])
+
+    useEffect(() => {
+        if (!isLoading && data) {
+            const newList = data.pages.flat().map((item) => {
+                return { ...item, deleted: false }
             })
-    }, [])
+            setItemList(newList)
+        }
+    }, [isLoading, data, setItemList])
+
+    const onClickDelete = (item: ItemType) => {
+        setItemList((prev) => prev.map((ele) => (ele === item ? { ...ele, deleted: true } : ele)))
+    }
 
     return (
-        <S.ListContainer>
-            {data.map((ele) => (
-                <ListItem
-                    key={ele.url}
-                    name={ele.name}
-                    titles={ele.titles}
-                    aliases={ele.aliases}
-                    books={ele.books}
-                    tvSeries={ele.tvSeries}
-                />
+        <ListContainerWrapper>
+            {isLoading && <div>Loading...</div>}
+            {filteredItemList.map((item, index) => (
+                <ListItem key={`item-${index}`} item={item} onClick={onClickDelete} />
             ))}
-        </S.ListContainer>
+            <ReactQueryDevtools initialIsOpen />
+        </ListContainerWrapper>
     )
 }
 
 export default ListContainer
+
+const ListContainerWrapper = styled.div`
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 10px;
+`
