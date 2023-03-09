@@ -1,17 +1,29 @@
-import React from 'react'
+import { useSetRecoilState, useRecoilState } from 'recoil'
 import * as S from './styles'
 import FilterItem from './FilterItem'
+import { filterListState, itemListState } from '../../store/atoms'
+import { FilterType } from '../../types/global'
 
 type Props = {}
 
 function FilterContainer({}: Props) {
-    const filter = ['생존인물만', '여자', 'tvSeries 없음', '초기화']
+    const [filterList, setFilterList] = useRecoilState(filterListState)
+    const setItemList = useSetRecoilState(itemListState)
+    const onClickFilter = (item: FilterType) => {
+        setFilterList((prev) =>
+            prev.map((ele) => (ele === item ? { ...ele, selected: !ele.selected } : ele))
+        )
+    }
+    const handleClickClear = () => {
+        setItemList((prev) => prev.map((ele) => ({ ...ele, deleted: false })))
+    }
 
     return (
         <S.FilterContainer>
-            {filter.map((data) => (
-                <FilterItem title={data} />
+            {filterList.map((filter, index) => (
+                <FilterItem key={`filter-${index}`} item={filter} onClick={onClickFilter} />
             ))}
+            <S.ClearButton onClick={handleClickClear}>초기화</S.ClearButton>
         </S.FilterContainer>
     )
 }
