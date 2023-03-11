@@ -1,55 +1,29 @@
-import { useCallback, useEffect } from 'react'
-import { useInfiniteQuery } from 'react-query'
+import { useEffect } from 'react'
 import { ReactQueryDevtools } from 'react-query/devtools'
 import { useSetRecoilState, useRecoilValue } from 'recoil'
-import ListItem from './ListItem'
 import styled from '@emotion/styled'
 import { itemListState, filteredItemListState } from '../../recoil/store'
 import { Item } from '../../types/global'
+import usePageParam from '../../hooks/usePageParam'
+import useFetchListInfinity from '../../hooks/useFetchListInfinity'
+import useScrollBottomEffect from '../../hooks/useScrollBottomEffect'
+import ListItem from './ListItem'
 
 const MAX_PAGE = 10
 
-interface Props {
-    firstPage: number | string
-}
-function ListContainer({ firstPage = 1 }: Props) {
+function ListContainer() {
     const setItemList = useSetRecoilState(itemListState)
     const filteredItemList = useRecoilValue(filteredItemListState)
 
-    const getItemList = async (pageNum: number | string) => {
-        const response = await fetch(
-            `https://www.anapioficeandfire.com/api/characters?page=${pageNum}&pageSize=10`
-        )
-        const data = await response.json()
-        return data
-    }
-
-    const { data, isLoading, hasNextPage, fetchNextPage } = useInfiniteQuery(
-        `itemList`,
-        ({ pageParam = firstPage }) => getItemList(pageParam),
-        {
-            getNextPageParam: (lastPage, allPages) => {
-                const currentPage = +firstPage + allPages.length - 1
-                const nextPage = currentPage < MAX_PAGE ? currentPage + 1 : undefined
-                return nextPage
-            },
-        }
-    )
-
-    const handleScroll = useCallback(() => {
-        const scrollPosition = window.innerHeight + window.pageYOffset
-        const pageBottom = document.body.scrollHeight
-        if (scrollPosition >= pageBottom && hasNextPage && !isLoading) {
+    const { data, isLoading, hasNextPage, fetchNextPage } = useFetchListInfinity({
+        startPage: usePageParam(),
+        maxPagNum: MAX_PAGE,
+    })
+    useScrollBottomEffect(() => {
+        if (hasNextPage && !isLoading) {
             fetchNextPage()
         }
-    }, [fetchNextPage, isLoading])
-
-    useEffect(() => {
-        window.addEventListener('scroll', handleScroll)
-        return () => {
-            window.removeEventListener('scroll', handleScroll)
-        }
-    }, [handleScroll])
+    }, [data])
 
     useEffect(() => {
         if (!isLoading && data) {
@@ -58,7 +32,7 @@ function ListContainer({ firstPage = 1 }: Props) {
             })
             setItemList(newList)
         }
-    }, [isLoading, data, setItemList])
+    }, [isLoading, data])
 
     const onClickDelete = (item: Item) => {
         setItemList((prev) => prev.map((ele) => (ele === item ? { ...ele, deleted: true } : ele)))

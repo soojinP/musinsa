@@ -1,26 +1,19 @@
-import { useLocation } from 'react-router-dom'
 import styled from '@emotion/styled'
 import Filter from '../components/Filter'
 import Title from '../components/Title'
 import List from '../components/List'
 
-type Props = {}
-
-function Page({}: Props) {
-    const { pathname, search } = useLocation()
-    const urlParams = new URLSearchParams(search)
-    const page = pathname === '/homework' ? urlParams.get('page') || 1 : 1
-
+function Page() {
     return (
-        <StyledPage>
+        <PageWrapper>
             <Title />
             <Filter />
-            <List firstPage={+page} />
-        </StyledPage>
+            <List />
+        </PageWrapper>
     )
 }
 
-const StyledPage = styled.div`
+const PageWrapper = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;

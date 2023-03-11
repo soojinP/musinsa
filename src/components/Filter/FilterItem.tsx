@@ -1,7 +1,7 @@
 import { useRecoilState } from 'recoil'
+import styled from '@emotion/styled'
 import { filterListState } from '../../recoil/store'
 import { Filter } from '../../types/global'
-import * as S from './styles'
 
 interface Props {
     item: Filter
@@ -10,7 +10,7 @@ interface Props {
 
 function FilterItem({ item, onClick }: Props) {
     return (
-        <S.FilterItem
+        <FilterItemWrapper
             selected={item.selected}
             onClick={(e) => {
                 onClick(item)
@@ -18,8 +18,25 @@ function FilterItem({ item, onClick }: Props) {
             }}
         >
             {item.title}
-        </S.FilterItem>
+        </FilterItemWrapper>
     )
 }
 
 export default FilterItem
+
+interface FilterItemProps {
+    selected: boolean
+}
+
+const FilterItemWrapper = styled.div<FilterItemProps>`
+    display: flex;
+    height: 2rem;
+    margin-left: 0.5rem;
+    padding: 0 0.5rem;
+    border-radius: 0.25rem;
+    background-color: #f3f3f3;
+    font-size: 0.875rem;
+    color: ${(props) => (props.selected ? '#0078ff' : '#6e6e6e')};
+    align-items: center;
+    cursor: default;
+`
