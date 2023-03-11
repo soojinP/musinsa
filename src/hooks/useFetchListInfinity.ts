@@ -1,4 +1,4 @@
-import { useInfiniteQuery, useQuery, UseQueryOptions } from 'react-query'
+import { useInfiniteQuery } from 'react-query'
 
 interface Props {
     startPage: number

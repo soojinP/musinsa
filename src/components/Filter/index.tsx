@@ -1,8 +1,8 @@
 import { useSetRecoilState, useRecoilState } from 'recoil'
 import styled from '@emotion/styled'
 import FilterItem from './FilterItem'
-import { filterListState, itemListState } from '../../recoil/store'
-import { Filter } from '../../types/global'
+import { filterListState, itemListState } from '@/recoil/store'
+import { Filter } from '@/types/global'
 
 type Props = {}
 

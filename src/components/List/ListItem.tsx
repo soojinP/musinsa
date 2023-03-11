@@ -1,5 +1,5 @@
 import styled from '@emotion/styled'
-import { Item } from '../../types/global'
+import { Item } from '@/types/global'
 
 interface Props {
     item: Item

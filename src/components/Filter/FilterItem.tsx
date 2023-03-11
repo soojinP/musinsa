@@ -1,7 +1,5 @@
-import { useRecoilState } from 'recoil'
 import styled from '@emotion/styled'
-import { filterListState } from '../../recoil/store'
-import { Filter } from '../../types/global'
+import { Filter } from '@/types/global'
 
 interface Props {
     item: Filter

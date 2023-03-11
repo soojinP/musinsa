@@ -1,7 +1,7 @@
 import styled from '@emotion/styled'
-import Filter from '../components/Filter'
-import Title from '../components/Title'
-import List from '../components/List'
+import Filter from '@/components/Filter'
+import Title from '@/components/Title'
+import List from '@/components/List'
 
 function Page() {
     return (
