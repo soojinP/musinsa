@@ -35,7 +35,7 @@ export const filterListState = atom<Filter[]>({
             title: '#tvSeries 없음',
             selected: false,
             checkItem: (item) => {
-                return item.tvSeries.length <= 0
+                return item.tvSeries.filter((ele) => ele !== '').length <= 0
             },
         },
     ],

@@ -1,5 +1,6 @@
 import styled from '@emotion/styled'
 import { Item } from '@/types/global'
+import ItemProperty from './ItemProperty'
 
 interface Props {
     item: Item
@@ -9,12 +10,22 @@ interface Props {
 function ListItem({ item, onClick }: Props) {
     return (
         <ItemWrapper>
-            <div style={{ display: 'flex', flexDirection: 'column' }}>
-                <p>{`name: ${item.name}`}</p>
-                <p>{`aliases: ${item.aliases?.join(', ')}`}</p>
-                <p>{`title: ${item.titles?.join(', ')}`}</p>
-                <p>{`books: ${item.books?.length}`}</p>
-                <p>{`tvSeries: ${item.tvSeries?.length}`}</p>
+            <div>
+                <div style={{ display: 'flex', flexDirection: 'row' }}>
+                    <ItemProperty name="name" value={item.name} />
+                    <ItemProperty name="aliases" value={item.aliases.join(', ')} />
+                </div>
+                <ItemProperty name="titles" value={item.titles.join(', ')} />
+                <div style={{ display: 'flex', flexDirection: 'row' }}>
+                    <ItemProperty
+                        name="books"
+                        value={item.books.filter((ele) => ele !== '').length}
+                    />
+                    <ItemProperty
+                        name="tvSeries"
+                        value={item.tvSeries.filter((ele) => ele !== '').length}
+                    />
+                </div>
             </div>
             <DeleteButton
                 onClick={(e) => {
@@ -43,7 +54,7 @@ const ItemWrapper = styled.div`
 
 const DeleteButton = styled.div`
     position: absolute;
-    right: 1.875rem;
+    right: 1.5rem;
     border: 0.0625rem solid #000;
     border-radius: 0.25rem;
     padding: 0.3125rem 0.625rem;
