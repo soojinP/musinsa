@@ -1,6 +1,6 @@
-import { useEffect } from 'react'
+import { useEffect, useCallback } from 'react'
 import { ReactQueryDevtools } from 'react-query/devtools'
-import { useSetRecoilState, useRecoilValue } from 'recoil'
+import { useRecoilState, useSetRecoilState, useRecoilValue } from 'recoil'
 import styled from '@emotion/styled'
 import { itemListState, displayItemListState } from '@/recoil/store'
 import { Item } from '@/types/global'
@@ -13,13 +13,14 @@ import Loading from './Loading'
 const MAX_PAGE = 10
 
 function ListContainer() {
-    const setItemList = useSetRecoilState(itemListState)
+    const [itemList, setItemList] = useRecoilState(itemListState)
     const displayItemList = useRecoilValue(displayItemListState)
 
     const { data, isLoading, hasNextPage, fetchNextPage } = useFetchListInfinity({
         startPage: usePageParam(),
         maxPagNum: MAX_PAGE,
     })
+
     useScrollBottomEffect(() => {
         if (hasNextPage && !isLoading) {
             fetchNextPage()
@@ -35,9 +36,14 @@ function ListContainer() {
         }
     }, [isLoading, data])
 
-    const onClickDelete = (item: Item) => {
-        setItemList((prev) => prev.map((ele) => (ele === item ? { ...ele, deleted: true } : ele)))
-    }
+    const onClickDelete = useCallback(
+        (item: Item) => {
+            setItemList((prev) =>
+                prev.map((ele) => (ele === item ? { ...ele, deleted: true } : ele))
+            )
+        },
+        [itemList]
+    )
 
     return (
         <ListContainerWrapper>

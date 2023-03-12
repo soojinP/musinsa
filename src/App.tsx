@@ -1,5 +1,4 @@
-import React from 'react'
-import { RecoilRoot, atom, selector, useRecoilState, useRecoilValue } from 'recoil'
+import { RecoilRoot } from 'recoil'
 import Page from './pages/Page'
 import { QueryClient, QueryClientProvider } from 'react-query'
 

@@ -1,22 +1,26 @@
-import { useSetRecoilState, useRecoilState } from 'recoil'
+import { useCallback } from 'react'
+import { useRecoilState } from 'recoil'
 import styled from '@emotion/styled'
-import FilterItem from './FilterItem'
 import { filterListState, itemListState } from '@/recoil/store'
 import { Filter } from '@/types/global'
+import FilterItem from './FilterItem'
 
-type Props = {}
-
-function FilterList({}: Props) {
+function FilterList() {
     const [filterList, setFilterList] = useRecoilState(filterListState)
-    const setItemList = useSetRecoilState(itemListState)
-    const onClickFilter = (item: Filter) => {
-        setFilterList((prev) =>
-            prev.map((ele) => (ele === item ? { ...ele, selected: !ele.selected } : ele))
-        )
-    }
-    const handleClickClear = () => {
+    const [itemList, setItemList] = useRecoilState(itemListState)
+
+    const onClickFilter = useCallback(
+        (item: Filter) => {
+            setFilterList((prev) =>
+                prev.map((ele) => (ele === item ? { ...ele, selected: !ele.selected } : ele))
+            )
+        },
+        [filterList]
+    )
+
+    const handleClickClear = useCallback(() => {
         setItemList((prev) => prev.map((ele) => ({ ...ele, deleted: false })))
-    }
+    }, [itemList])
 
     return (
         <FilterListWrapper>
