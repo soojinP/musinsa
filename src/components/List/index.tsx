@@ -75,6 +75,12 @@ const NextPageButton = styled.button`
     border: 1px solid black;
     border-radius: 4rem;
     box-shadow: 2px 2px 2px grey;
+    background-color: black;
+    color: #fff;
+    &:active {
+        background-color: white;
+        color: black;
+    }
 `
 const LastPageText = styled.div`
     align-self: center;

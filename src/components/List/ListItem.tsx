@@ -33,7 +33,7 @@ function ListItem({ item, onClick }: Props) {
                     />
                 </div>
             </div>
-            <DeleteButton onClick={handleDeleteClick}>X</DeleteButton>
+            <DeleteButton onClick={handleDeleteClick}>삭제</DeleteButton>
         </ItemWrapper>
     )
 }
@@ -44,27 +44,26 @@ const ItemWrapper = styled.div`
     display: flex;
     flex-direction: row;
     padding: 0 0.5rem;
-    border: 1px solid #000;
     border-radius: 0.25rem;
     font-size: 0.875rem;
     align-items: center;
     margin-bottom: 14px;
-    box-shadow: 2px 2px 2px grey;
+    box-shadow: 10px 10px 17px grey;
 `
 
 const DeleteButton = styled.div`
     position: absolute;
     right: 1.25rem;
-    width: 2.125rem;
-    height: 2.125rem;
-    border-radius: 50%;
-    color: white;
+    padding: 0.375rem;
+    border-radius: 0.375rem;
+    border: 1.5px solid red;
+    background-color: #fff;
+    font-size: 0.75rem;
+    color: red;
     align-items: center;
-    justify-content: center;
-    display: flex;
-    background-color: #df2e38;
-    font-size: 1rem;
+
     &:active {
-        border: 2px solid red;
+        background-color: red;
+        color: #fff;
     }
 `
