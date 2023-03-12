@@ -1,7 +1,6 @@
 import styled from '@emotion/styled'
 import { Item } from '@/types/global'
 import ItemProperty from './ItemProperty'
-import { useState } from 'react'
 
 interface Props {
     item: Item
