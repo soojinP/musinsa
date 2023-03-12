@@ -32,7 +32,7 @@ function ListContainer() {
             const newList = data.pages.flat().map((item) => {
                 return { ...item, deleted: false }
             })
-            setItemList(newList)
+            setItemList((prev) => [...prev, ...newList.slice(prev.length, newList.length)])
         }
     }, [isLoading, data])
 
