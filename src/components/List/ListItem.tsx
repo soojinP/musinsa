@@ -1,6 +1,7 @@
 import styled from '@emotion/styled'
 import { Item } from '@/types/global'
 import ItemProperty from './ItemProperty'
+import { useState } from 'react'
 
 interface Props {
     item: Item
@@ -8,6 +9,11 @@ interface Props {
 }
 
 function ListItem({ item, onClick }: Props) {
+    const handleDeleteClick = (e: React.MouseEvent<HTMLDivElement>) => {
+        onClick(item)
+        e.stopPropagation()
+    }
+
     return (
         <ItemWrapper>
             <div>
@@ -27,14 +33,7 @@ function ListItem({ item, onClick }: Props) {
                     />
                 </div>
             </div>
-            <DeleteButton
-                onClick={(e) => {
-                    onClick(item)
-                    e.stopPropagation()
-                }}
-            >
-                삭제
-            </DeleteButton>
+            <DeleteButton onClick={handleDeleteClick}>X</DeleteButton>
         </ItemWrapper>
     )
 }
@@ -54,12 +53,17 @@ const ItemWrapper = styled.div`
 
 const DeleteButton = styled.div`
     position: absolute;
-    right: 1.5rem;
-    border: 0.0625rem solid #000;
-    border-radius: 0.25rem;
-    padding: 0.3125rem 0.625rem;
+    right: 1.25rem;
+    width: 2.125rem;
+    height: 2.125rem;
+    border-radius: 50%;
+    color: white;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    background-color: #df2e38;
+    font-size: 1rem;
     &:active {
-        background-color: #000;
-        color: #fff;
+        border: 2px solid red;
     }
 `
