@@ -10,15 +10,13 @@
 2. Navigate to the project directory and install the dependencies
 
     ```bash
-    cd ./musinsa
-    yarn
+    cd ./musinsa && yarn
     ```
 
 3. Build in production mode and start the application
 
     ```bash
-    yarn build
-    yarn preview
+    yarn build && yarn preview
     ```
 
 4. Open your web browser and enter the following URL:
