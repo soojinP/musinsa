@@ -49,6 +49,7 @@ const ItemWrapper = styled.div`
     font-size: 0.875rem;
     align-items: center;
     margin-bottom: 14px;
+    box-shadow: 2px 2px 2px grey;
 `
 
 const DeleteButton = styled.div`

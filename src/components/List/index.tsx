@@ -8,6 +8,7 @@ import usePageParam from '@/hooks/usePageParam'
 import useFetchListInfinity from '@/hooks/useFetchListInfinity'
 import useScrollBottomEffect from '@/hooks/useScrollBottomEffect'
 import ListItem from './ListItem'
+import Loading from './Loading'
 
 const MAX_PAGE = 10
 
@@ -40,7 +41,16 @@ function ListContainer() {
 
     return (
         <ListContainerWrapper>
-            {isLoading && <div>Loading...</div>}
+            {isLoading && <Loading />}
+            {displayItemList.length === 0 &&
+                !isLoading &&
+                (hasNextPage ? (
+                    <NextPageButton onClick={() => fetchNextPage()}>
+                        !!다음 페이지 불러오기!!
+                    </NextPageButton>
+                ) : (
+                    <LastPageText>마지막 페이지</LastPageText>
+                ))}
             {displayItemList.map((item, index) => (
                 <ListItem key={`item-${index}`} item={item} onClick={onClickDelete} />
             ))}
@@ -56,4 +66,16 @@ const ListContainerWrapper = styled.div`
     flex-direction: column;
     width: 100%;
     padding: 0.625rem;
+`
+
+const NextPageButton = styled.button`
+    align-self: center;
+    width: 10rem;
+    padding: 0.5rem;
+    border: 1px solid black;
+    border-radius: 4rem;
+    box-shadow: 2px 2px 2px grey;
+`
+const LastPageText = styled.div`
+    align-self: center;
 `
