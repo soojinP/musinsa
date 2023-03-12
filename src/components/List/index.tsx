@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import { ReactQueryDevtools } from 'react-query/devtools'
 import { useSetRecoilState, useRecoilValue } from 'recoil'
 import styled from '@emotion/styled'
-import { itemListState, filteredItemListState } from '@/recoil/store'
+import { itemListState, displayItemListState } from '@/recoil/store'
 import { Item } from '@/types/global'
 import usePageParam from '@/hooks/usePageParam'
 import useFetchListInfinity from '@/hooks/useFetchListInfinity'
@@ -13,7 +13,7 @@ const MAX_PAGE = 10
 
 function ListContainer() {
     const setItemList = useSetRecoilState(itemListState)
-    const filteredItemList = useRecoilValue(filteredItemListState)
+    const displayItemList = useRecoilValue(displayItemListState)
 
     const { data, isLoading, hasNextPage, fetchNextPage } = useFetchListInfinity({
         startPage: usePageParam(),
@@ -41,7 +41,7 @@ function ListContainer() {
     return (
         <ListContainerWrapper>
             {isLoading && <div>Loading...</div>}
-            {filteredItemList.map((item, index) => (
+            {displayItemList.map((item, index) => (
                 <ListItem key={`item-${index}`} item={item} onClick={onClickDelete} />
             ))}
             <ReactQueryDevtools initialIsOpen />

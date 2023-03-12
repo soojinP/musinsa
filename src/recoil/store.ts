@@ -6,14 +6,6 @@ export const itemListState = atom<Item[]>({
     default: [],
 })
 
-export const displayItemListState = selector({
-    key: 'displayItemListState',
-    get: ({ get }) => {
-        const displayList = get(itemListState).filter((item) => !item.deleted)
-        return displayList
-    },
-})
-
 export const filterListState = atom<Filter[]>({
     key: 'filterListState',
     default: [
@@ -45,7 +37,7 @@ export const filteredItemListState = selector({
     key: 'filteredItemListState',
     get: ({ get }) => {
         const filterList = get(filterListState).filter((filter) => filter.selected)
-        let list = get(displayItemListState)
+        let list = get(itemListState)
 
         for (const filter of filterList) {
             list = list.filter((item) => {
@@ -54,5 +46,13 @@ export const filteredItemListState = selector({
         }
 
         return list
+    },
+})
+
+export const displayItemListState = selector({
+    key: 'displayItemListState',
+    get: ({ get }) => {
+        const displayList = get(filteredItemListState).filter((item) => !item.deleted)
+        return displayList
     },
 })
