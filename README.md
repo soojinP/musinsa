@@ -1,4 +1,5 @@
-##무신사 Global 프론트직무 과제 by soojin_park ###실행 방법
+<h1>무신사 Global 프론트직무 과제 by soojin_park</h1>
+<h2>실행 방법</h2>
 
 1. Clone the repository
 
